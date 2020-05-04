@@ -1,0 +1,17 @@
+import { Usuario } from '../models/usuario.model';
+import { createReducer, on, Action } from '@ngrx/store';
+import { setUser, unSetUser } from './auth.actions';
+
+export interface AuthState {
+    user: Usuario
+}
+
+const initialState: AuthState = { user: null }
+
+const _authReducer = createReducer(initialState,
+    on(setUser, state => ({ ...state, user: state.user })),
+    on(unSetUser, state => ({ ...state, user: null })));
+
+export function authReducer(state:AuthState, action:Action){
+    return _authReducer(state, action)
+}
