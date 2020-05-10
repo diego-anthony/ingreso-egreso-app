@@ -7,5 +7,9 @@
         ]
       }
     }
+  },
+  "projects": {
+    "default": "ingreso-egreso-web-app",
+    "staging": "ingreso-egreso-web-app"
   }
 }

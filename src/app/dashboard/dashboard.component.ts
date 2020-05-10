@@ -5,7 +5,7 @@ import { AuthService } from '../services/auth.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
 import { mergeMap, tap, filter, map } from 'rxjs/operators';
-import { setIngresoEgreso } from '../ingreso-egreso/ingreso-egreso.actions';
+import { setIngresoEgreso, unsetIngresoEgreso } from '../ingreso-egreso/ingreso-egreso.actions';
 import { IngresoEgreso } from '../models/ingreso-egreso.model';
 
 @Component({
@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this._store.select('auth').pipe(
-      filter(({ user }) => user !== null),
+      filter(({ user }) => user !== null && user !== undefined),
       mergeMap(({ user }) => this._ingresoEgresoService.ingresoEgresoListener(user.uid))
     ).subscribe(ingresoEgresoList => {
       this._store.dispatch(setIngresoEgreso({items:ingresoEgresoList }))
@@ -33,7 +33,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this._store.dispatch(unsetIngresoEgreso())
   }
-
-
 }

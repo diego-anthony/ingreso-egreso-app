@@ -6,6 +6,7 @@ import { IngresoEgreso } from '../../models/ingreso-egreso.model';
 import { ChartType } from 'chart.js';
 import { MultiDataSet, Label } from 'ng2-charts';
 import { tap } from 'rxjs/operators';
+import { AppStateIngresoEgreso } from '../ingreso-egreso.reducer';
 
 @Component({
   selector: 'app-estadistica',
@@ -31,7 +32,7 @@ export class EstadisticaComponent implements OnInit {
   public doughnutChartType: ChartType = 'doughnut';
 
   constructor(
-    private _store: Store<AppState>
+    private _store: Store<AppStateIngresoEgreso>
   ) { }
 
   ngOnInit(): void {
