@@ -9,7 +9,7 @@ export interface AuthState {
 const initialState: AuthState = { user: null }
 
 const _authReducer = createReducer(initialState,
-    on(setUser, state => ({ ...state, user: state.user })),
+    on(setUser, (state,{user}) => ({ ...state, user: user })),
     on(unSetUser, state => ({ ...state, user: null })));
 
 export function authReducer(state:AuthState, action:Action){
