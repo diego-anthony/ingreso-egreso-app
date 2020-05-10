@@ -36,8 +36,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
 
     this.uiSubscription = this._store.select('ui').subscribe(ui => {
-      console.log('change loading');
-
       this.isLoading = ui.isLoading;
     });
   }

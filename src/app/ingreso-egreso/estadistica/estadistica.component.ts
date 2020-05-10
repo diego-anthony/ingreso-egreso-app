@@ -19,9 +19,9 @@ export class EstadisticaComponent implements OnInit {
   amountIngresos: number = 0;
   amountEgresos: number = 0;
 
-  totalAmount:number = 0;
-  diference:number = 0;
-  
+  totalAmount: number = 0;
+  diference: number = 0;
+
   percentIngresos: number = 0;
   percentEgresos: number = 0;
 
@@ -37,8 +37,8 @@ export class EstadisticaComponent implements OnInit {
   ngOnInit(): void {
     this._store.select('ingresoEgreso').subscribe(({ items }) => {
       if (items && items.length > 0) {
-        this.amountIngresos = this._calculateTotalByType(items,'ingreso');
-        this.amountEgresos =this._calculateTotalByType(items,'egreso');
+        this.amountIngresos = this._calculateTotalByType(items, 'ingreso');
+        this.amountEgresos = this._calculateTotalByType(items, 'egreso');
 
         this.totalAmount = this.amountEgresos + this.amountIngresos;
         this.diference = this.amountIngresos - this.amountEgresos;
@@ -53,18 +53,19 @@ export class EstadisticaComponent implements OnInit {
     })
   }
 
-  private _calculateTotalByType(items:IngresoEgreso[],type:string):number{
+  private _calculateTotalByType(items: IngresoEgreso[], type: string): number {
     let total = 0;
-    if (items && items.length > 0) {
-      total = items.filter(x => x.tipo === type)
-                    .map(x => x.monto)
-                    .reduce((acc, curr) => acc + curr);
+    if (items?.length > 0) {
+      let amounts = items.filter(x => x.tipo === type).map(x => x.monto);
+      if (amounts?.length > 0) {
+        total = amounts.reduce((acc, curr) => acc + curr);
+      }
     }
     return total;
   }
 
-  private _calculatePercent(total:number){
-    return total/(this.totalAmount);
+  private _calculatePercent(total: number) {
+    return total / (this.totalAmount);
   }
 
 }

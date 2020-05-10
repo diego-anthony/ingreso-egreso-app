@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   register() {
     if (this.registerForm.valid) {
       this._store.dispatch(uiActions.startLoading());
-      const { email, password } = this.registerForm.value;
+      const { name, email, password } = this.registerForm.value;
       this._authService.register(name, email, password).then(() => {
         this._store.dispatch(uiActions.stopLoading());
         this._router.navigate(['/']);
